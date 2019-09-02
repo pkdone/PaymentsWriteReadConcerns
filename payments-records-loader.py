@@ -98,14 +98,6 @@ def query_payment_records(processor_count, process_id, records_per_process, log_
                 print(f'Queried record not found for _id: {doc_id}')
 
             logSampleStatusOnEachPercent(log_queue, records_per_process, process_id, count, start)
-            """
-            # Log a response time & status for every 1% processed
-            if count % (records_per_process/100) == 0:
-                log_queue.put(f'{int(count / records_per_process * 100)}% - {count} '
-                              f'documents inserted for data set id {process_id} - '
-                              f'{datetime.now()} - sample response time for one request: '
-                              f'{1000 * (datetime.utcnow().timestamp() - start)} ms\n')
-            """
         except Exception as e:
             print(f'Terminating due to error whilst performing queries:\n')
             traceback.print_exc()
@@ -142,14 +134,6 @@ def insert_payment_records(processor_count, process_id, records_per_process, log
             collection.insert_one(ingest_doc)
 
             logSampleStatusOnEachPercent(log_queue, records_per_process, process_id, count, start)
-            """
-            # Log a response time & status for every 1% processed
-            if count % (records_per_process/100) == 0:
-                log_queue.put(f'{int(count / records_per_process * 100)}% - {count} '
-                              f'documents inserted for data set id {process_id} - '
-                              f'{datetime.now()} - sample response time for one request: '
-                              f'{1000 * (datetime.utcnow().timestamp() - start)} ms\n')
-            """
         except Exception as e:
             print(f'Terminating due to error whilst performing inserts:\n')
             traceback.print_exc()
