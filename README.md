@@ -9,7 +9,7 @@ For usage first ensure the '.py' script is executable and then run:
 ./payments-records-loader.py -h
 ```
 
-Example to connect to an Atlas cluster to collect statistics from:
+Example to connect to an Atlas cluster to write data to using 8 processes:
 ```
 ./payments-records-loader.py -u "mongodb+srv://myuser:mypswd@testcluster-ap.mongodb.net" -p 8
 ```
