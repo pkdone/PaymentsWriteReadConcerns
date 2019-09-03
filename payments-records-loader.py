@@ -49,8 +49,8 @@ def main():
                            f'use for DB interaction: local (WC:1, RC:local), majority (WC:majority,'
                            f'RC:majority), linearizable (WC:majority, RC:linearizable) (default: '
                            f'{DEFAULT_MODE})')
-    argparser.add_argument('-t', '--totalrec', type=int, default=DEF_INSERTS_TOTAL,
-                           help=f'Number of records to insert (default: {DEF_INSERTS_TOTAL})')
+    argparser.add_argument('-t', '--totalrec', type=int, default=DEFAULT_INSERTS_TOTAL,
+                           help=f'Number of records to insert (default: {DEFAULT_INSERTS_TOTAL})')
     argparser.add_argument('-q', '--doqueries', default=DEFAULT_DO_QUERIES,
                            action='store_true', help=f'Perform querying of existing Payment data'
                            f' set rather than inserting new Payment data set (default:'
@@ -175,7 +175,7 @@ DEFAULT_TIMEOUT_MILLIS = 2000
 DEFAULT_MONGODB_URL = 'mongodb://localhost:27017'
 DEFAULT_TOTAL_PROCESSES = 2
 DEFAULT_MODE = 'local'
-DEF_INSERTS_TOTAL = 1000000
+DEFAULT_INSERTS_TOTAL = 1000000
 DEFAULT_DO_QUERIES = False
 DEFAULT_LOG_FILENAME = 'processing-output.log'
 DB_NAME = 'fs'
