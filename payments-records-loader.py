@@ -57,7 +57,6 @@ def main():
                            f' {DEFAULT_DO_QUERIES})')
     args = argparser.parse_args()
 
-    # Run main data processing work split into multiple processes, tracking start & end times
     print()
     print(f"Using URL '{args.url}' (mode: {args.mode}), check file '{args.logfile}' for progress "
           f"information")
@@ -83,7 +82,6 @@ def main():
 def query_payment_records(processor_count, process_id, records_per_process, log_queue, uri, mode):
     (connection, database, collection) = getClientConnDBCollectionWithConcerns(uri, mode)
 
-    # Loop creating each random payment record and ingesting into a collection
     for count in range(records_per_process):
         try:
             doc_id = f'{randint(0, processor_count-1)}_{randint(0, records_per_process-1)}'
@@ -91,7 +89,6 @@ def query_payment_records(processor_count, process_id, records_per_process, log_
             if count % (records_per_process/100) == 0:
                 start = datetime.utcnow().timestamp()
 
-            # FIND
             payment_records = collection.find_one({'_id': doc_id})
 
             if payment_records is None:
@@ -111,7 +108,6 @@ def insert_payment_records(processor_count, process_id, records_per_process, log
     (connection, database, collection) = getClientConnDBCollectionWithConcerns(uri, mode)
     # Example index creation: collection.create_index([('fld1', ASCENDING), ('fld2', DESCENDING)])
 
-    # Loop creating each random payment record and ingesting into a collection
     for count in range(records_per_process):
         try:
             ingest_doc = {
@@ -130,7 +126,6 @@ def insert_payment_records(processor_count, process_id, records_per_process, log
             if count % (records_per_process/100) == 0:
                 start = datetime.utcnow().timestamp()
 
-            # INSERT
             collection.insert_one(ingest_doc)
 
             logSampleStatusOnEachPercent(log_queue, records_per_process, process_id, count, start)
